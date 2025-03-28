@@ -1,1 +1,12 @@
 spring.application.name: skeleton
+
+logging:
+  slack:
+    webhook:
+      url: https://hooks.slack.com/services/**********/**********/**********
+      service-name: ${spring.application.name}
+      channel: "#channel"
+      username: "bot-name"
+      level: ERROR
+      include-stacktrace: true
+      max-stacktrace-lines: -1
