@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/spring.log}"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    <include resource="org/springframework/boot/logging/logback/file-appender.xml"/>
+
+    <springProperty scope="context" name="SLACK_WEBHOOK_URL" source="logging.slack.webhook.url"/>
+    <springProperty scope="context" name="SERVICE_NAME" source="logging.slack.webhook.service-name"/>
+    <springProperty scope="context" name="SLACK_CHANNEL" source="logging.slack.webhook.channel"/>
+    <springProperty scope="context" name="SLACK_USERNAME" source="logging.slack.webhook.username"/>
+    <springProperty scope="context" name="SLACK_LOG_LEVEL" source="logging.slack.webhook.level"/>
+    <springProperty scope="context" name="INCLUDE_STACKTRACE" source="logging.slack.webhook.include-stacktrace"/>
+    <springProperty scope="context" name="MAX_STACKTRACE_LINES" source="logging.slack.webhook.max-stacktrace-lines"/>
+    <include resource="me/choicore/logging/logback/slack-appender.xml"/>
+
+    <root level="INFO">
+        <appender-ref ref="ASYNC_SLACK"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>

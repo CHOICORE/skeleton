@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+    <property name="SLACK_WEBHOOK_URL" value="${SLACK_WEBHOOK_URL}"/>
+    <property name="SLACK_WEBHOOK_CHANNEL" value="${SLACK_WEBHOOK_CHANNEL}"/>
+    <property name="SLACK_USERNAME" value="${SLACK_USERNAME}"/>
+    <property name="SLACK_LOG_LEVEL" value="${SLACK_LOG_LEVEL:-ERROR}"/>
+    <property name="SLACK_SERVICE_NAME" value="${SLACK_SERVICE_NAME}"/>
+    <property name="INCLUDE_STACKTRACE" value="${INCLUDE_STACKTRACE:-true}"/>
+    <property name="MAX_STACKTRACE_LINES" value="${MAX_STACKTRACE_LINES:--1}"/>
+
+    <appender name="SLACK" class="me.choicore.logging.logback.SlackAppender">
+        <webhookUrl>${SLACK_WEBHOOK_URL}</webhookUrl>
+        <serviceName>${SERVICE_NAME}</serviceName>
+        <channel>${SLACK_CHANNEL}</channel>
+        <username>${SLACK_USERNAME}</username>
+        <iconEmoji>:rage:</iconEmoji>
+        <level>${SLACK_LOG_LEVEL}</level>
+        <includeStackTrace>${INCLUDE_STACKTRACE}</includeStackTrace>
+        <maxStackTraceLines>${MAX_STACKTRACE_LINES}</maxStackTraceLines>
+    </appender>
+
+    <appender name="ASYNC_SLACK" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="SLACK"/>
+        <includeCallerData>true</includeCallerData>
+        <queueSize>128</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+    </appender>
+</included>
